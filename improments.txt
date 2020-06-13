@@ -1,0 +1,2 @@
+controllers/auth index not working
+api not secured for client
