@@ -39,9 +39,9 @@ const Signup = () => {
         });
         toast.success(response.data.message);
       })
-      .catch((error) => {
+      .catch((err) => {
         setValues({ ...values, buttonText: "submit" });
-        toast.error(error.response.data.error);
+        toast.error(err.response.data.error);
       });
   };
 

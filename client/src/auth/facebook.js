@@ -2,6 +2,7 @@ import React from "react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import axios from "axios";
 const URL = require("../config").REACT_APP_API;
+
 const facebookID = require("../config").REACT_APP_FACEBOOK_ID;
 const Facebook = ({ informParent = (f) => f }) => {
   const responseFacebook = (response) => {
