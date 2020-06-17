@@ -4,7 +4,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-const URL = process.env.REACT_APP_API;
+const URL = require("../config").REACT_APP_API;
 
 const Activate = ({ match }) => {
   const [values, setValues] = useState({
