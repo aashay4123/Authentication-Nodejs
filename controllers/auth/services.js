@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken");
 
 exports.googleLogin = (req, res) => {
   const { idToken } = req.body;
-  console.log("Aaaaaaaaaaa", req.body);
-
   client
     .verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT_ID })
     .then((response) => {

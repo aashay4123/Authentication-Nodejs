@@ -4,6 +4,7 @@ import axios from "axios";
 const googleClient = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const Google = ({ informParent = (f) => f }) => {
+  console.log("ssssssss", googleClient);
   const responseGoogle = (response) => {
     axios({
       method: "POST",

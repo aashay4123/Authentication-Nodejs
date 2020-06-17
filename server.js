@@ -6,6 +6,7 @@ const bodyparser = require("body-parser");
 require("dotenv").config();
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
+const path = require("path");
 
 const app = express();
 
@@ -27,9 +28,9 @@ mongoose.Promise = global.Promise;
 app.use(morgan("dev"));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
-if (process.env.NODE_ENV === "development") {
-  app.use(cors({ origin: "http://localhost:3000" })); //allows all origin not usefull in production
-}
+// if (process.env.NODE_ENV === "development") {
+//   app.use(cors({ origin: "http://localhost:3000" }));
+// }
 
 app.use("/api", authRoute);
 app.use("/api", userRoute);
