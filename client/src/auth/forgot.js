@@ -3,8 +3,9 @@ import Layout from "../core/layout";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+const URL = process.env.REACT_APP_API;
 
-const Forgot = ({ history }) => {
+const Forgot = () => {
   const [values, setValues] = useState({
     email: "",
     buttonText: "Request Password Reset Link",
@@ -20,7 +21,7 @@ const Forgot = ({ history }) => {
     setValues({ ...values, buttonText: "Requesting password" });
     axios({
       method: "PUT",
-      url: `api/forgot-password`,
+      url: `${URL}/forgot-password`,
       data: { email },
     })
       .then((response) => {

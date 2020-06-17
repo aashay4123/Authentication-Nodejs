@@ -4,6 +4,7 @@ import axios from "axios";
 import { isAuth, getcookie, signout, updateUser } from "../auth/helper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+const URL = process.env.REACT_APP_API;
 
 const Private = ({ history }) => {
   const [values, setValues] = useState({
@@ -23,7 +24,7 @@ const Private = ({ history }) => {
   const loadProfile = () => {
     axios({
       method: "GET",
-      url: `api/user/${isAuth()._id}`,
+      url: `${URL}/user/${isAuth()._id}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -55,7 +56,7 @@ const Private = ({ history }) => {
     setValues({ ...values, buttonText: "Submitting" });
     axios({
       method: "PUT",
-      url: `${URL}/user/update`,
+      url: `api/user/update`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

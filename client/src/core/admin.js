@@ -55,7 +55,7 @@ const Admin = ({ history }) => {
     setValues({ ...values, buttonText: "Submitting" });
     axios({
       method: "PUT",
-      url: `${URL}/admin/update`,
+      url: `api/admin/update`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

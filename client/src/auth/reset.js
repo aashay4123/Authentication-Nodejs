@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+const URL = process.env.REACT_APP_API;
 
 const Reset = ({ match }) => {
   const [values, setValues] = useState({
@@ -30,7 +31,7 @@ const Reset = ({ match }) => {
     setValues({ ...values, buttonText: "Reseting password" });
     axios({
       method: "PUT",
-      url: `api/reset-password`,
+      url: `${URL}/reset-password`,
       data: { newPassword, resetPasswordLink: token },
     })
       .then((response) => {
