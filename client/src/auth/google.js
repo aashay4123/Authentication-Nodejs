@@ -1,14 +1,13 @@
 import React from "react";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
-const URL = require("../config").REACT_APP_API;
-const googleClient = require("../config").REACT_APP_GOOGLE_CLIENT_ID;
+const googleClient = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const Google = ({ informParent = (f) => f }) => {
   const responseGoogle = (response) => {
     axios({
       method: "POST",
-      url: `${URL}/google-login`,
+      url: `api/google-login`,
       data: { idToken: response.tokenId },
     })
       .then((response) => {

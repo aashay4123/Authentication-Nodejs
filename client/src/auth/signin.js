@@ -7,7 +7,6 @@ import { authenticate, isAuth } from "./helper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Facebook from "./facebook";
-const URL = require("../config").REACT_APP_API;
 
 const Signin = ({ history }) => {
   const [values, setValues] = useState({
@@ -41,7 +40,7 @@ const Signin = ({ history }) => {
     setValues({ ...values, buttonText: "submitting" });
     axios({
       method: "POST",
-      url: `${URL}/signin`,
+      url: `api/signin`,
       data: { email, password },
     })
       .then((response) => {

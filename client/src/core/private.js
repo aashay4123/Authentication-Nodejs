@@ -4,7 +4,6 @@ import axios from "axios";
 import { isAuth, getcookie, signout, updateUser } from "../auth/helper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-const URL = require("../config").REACT_APP_API;
 
 const Private = ({ history }) => {
   const [values, setValues] = useState({
@@ -24,7 +23,7 @@ const Private = ({ history }) => {
   const loadProfile = () => {
     axios({
       method: "GET",
-      url: `${URL}/user/${isAuth()._id}`,
+      url: `api/user/${isAuth()._id}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

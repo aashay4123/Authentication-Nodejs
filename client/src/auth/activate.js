@@ -4,7 +4,6 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-const URL = require("../config").REACT_APP_API;
 
 const Activate = ({ match }) => {
   const [values, setValues] = useState({
@@ -27,7 +26,7 @@ const Activate = ({ match }) => {
     event.preventDefault();
     axios({
       method: "POST",
-      url: `${URL}/account_activate`,
+      url: `api/account_activate`,
       data: { token },
     })
       .then((response) => {

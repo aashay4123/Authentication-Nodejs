@@ -5,7 +5,7 @@ import axios from "axios";
 import { isAuth } from "./helper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-const URL = require("../config").REACT_APP_API;
+
 const Signup = () => {
   const [values, setValues] = useState({
     name: "",
@@ -39,7 +39,6 @@ const Signup = () => {
         toast.success(response.data.message);
       })
       .catch((err) => {
-        console.log("hell", URL);
         setValues({ ...values, buttonText: "submit" });
         toast.error(err.response.data.error);
       });
