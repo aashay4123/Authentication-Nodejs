@@ -1,84 +1,49 @@
 import React, { Fragment } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { isAuth, signout } from "../auth/helper";
+import { withRouter } from "react-router-dom";
+import Header from "./header";
 
 const Layout = ({ children, match, history }) => {
-  const isActive = (path) => {
-    if (match.path === path) {
-      return { color: "#000" };
-    } else {
-      return { color: "#fff" };
+  let deferredPrompt;
+  if (process.browser) {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then(function () {
+          console.log("service worker registered");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  };
-  const nav = () => (
-    <Fragment>
-      <ui className="nav nav-tabs bg-primary">
-        <li className="nav-item">
-          <Link to="/" className="nav-link" style={isActive("/")}>
-            home
-          </Link>
-        </li>
-        {!isAuth() && (
-          <Fragment>
-            <li className="navbar-toggler ">
-              <Link
-                to="/signin"
-                className="nav-link"
-                style={isActive("/signin")}
-              >
-                signin
-              </Link>
-            </li>
-            <li className="navbar-toggler ">
-              <Link
-                to="/signup"
-                className="nav-link"
-                style={isActive("/signup")}
-              >
-                signup
-              </Link>
-            </li>
-          </Fragment>
-        )}
-        {isAuth() && isAuth().role === "admin" && (
-          <li className="nav-item">
-            <Link to="/admin" className="nav-link" style={isActive("/admin")}>
-              {isAuth().name}
-            </Link>
-          </li>
-        )}
-        {isAuth() && isAuth().role === "subscriber" && (
-          <li className="nav-item">
-            <Link
-              to="/private"
-              className="nav-link"
-              style={isActive("/private")}
-            >
-              {isAuth().name}
-            </Link>
-          </li>
-        )}
+    window.addEventListener("beforeinstallprompt", function (event) {
+      event.preventDefault();
+      console.log("prompt");
+      deferredPrompt = event;
+      return false;
+    });
+  }
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
 
-        {isAuth() && (
-          <li className="nav-item">
-            <span
-              className="nav-link"
-              style={{ cursor: "pointer", color: "#fff" }}
-              onClick={() => {
-                signout(() => {
-                  history.push("/");
-                });
-              }}
-            >
-              signout
-            </span>
-          </li>
-        )}
-      </ui>
+    deferredPrompt.userChoice.then(function (choiceResult) {
+      console.log(choiceResult.outcome);
+
+      if (choiceResult.outcome === "dismissed") {
+        console.log("User cancelled installation");
+      } else {
+        console.log("User added to home screen");
+      }
+    });
+
+    deferredPrompt = null;
+  }
+
+  return (
+    <Fragment>
+      <Header match={match} history={history} />
       <div className="container">{children}</div>
     </Fragment>
   );
-  return nav();
 };
 
 export default withRouter(Layout);
