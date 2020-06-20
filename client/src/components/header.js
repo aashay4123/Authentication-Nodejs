@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { isAuth, signout } from "../auth/helper";
+import { isAuth, signout } from "./helper";
 
 const Header = ({ match, history }) => {
   const isActive = (path) => {

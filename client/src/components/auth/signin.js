@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import Layout from "../core/layout";
+import Layout from "../../container/layout";
 import axios from "axios";
 import Google from "./google";
-import { authenticate, isAuth } from "./helper";
+import { authenticate, isAuth } from "../helper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Facebook from "./facebook";

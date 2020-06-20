@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../core/layout";
+import Layout from "../../container/layout";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import { ToastContainer, toast } from "react-toastify";

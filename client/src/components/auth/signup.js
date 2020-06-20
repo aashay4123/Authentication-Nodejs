@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import Layout from "../core/layout";
+import Layout from "../../container/layout";
 import axios from "axios";
-import { isAuth } from "./helper";
+import { isAuth } from "../helper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
