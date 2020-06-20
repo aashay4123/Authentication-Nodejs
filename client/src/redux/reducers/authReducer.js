@@ -5,18 +5,16 @@ import { toast } from "react-toastify";
 const initialState = {
   name: "",
   token: "",
-  error: false,
+  error: "",
 };
 
 const accountActivationFailed = (state, action) => {
-  console.log("error", action.error);
   toast.error(action.error);
-  return updateObject(state, { error: true });
+  return updateObject(state, { error: action.error });
 };
 const accountActivationsuccess = (state, action) => {
-  console.log("success", action.toastMessage);
   toast.success(action.toastMessage);
-  return updateObject(state, { error: false });
+  return updateObject(state, { error: action.toastMessage });
 };
 const updateNameToken = (state, action) => {
   return updateObject(state, {

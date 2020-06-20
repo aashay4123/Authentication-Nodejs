@@ -17,18 +17,18 @@ const Activate = (props) => {
   console.log(token);
   const clickSubmit = (event) => {
     event.preventDefault();
-    // props.onAccountActivation(props.token); //change
-    axios({
-      method: "POST",
-      url: `/account_activate`,
-      data: { token },
-    })
-      .then((response) => {
-        console.log("ACCOUNT ACTIVATION", response);
-      })
-      .catch((error) => {
-        console.log("ACCOUNT ACTIVATION ERROR", error.response.data.error);
-      });
+    props.onAccountActivation(props.token); //change
+    // axios({
+    //   method: "POST",
+    //   url: `/account_activate`,
+    //   data: { token },
+    // })
+    //   .then((response) => {
+    //     console.log("ACCOUNT ACTIVATION", response);
+    //   })
+    //   .catch((error) => {
+    //     console.log("ACCOUNT ACTIVATION ERROR", error.response.data.error);
+    //   });
   };
 
   const activationLink = () => (

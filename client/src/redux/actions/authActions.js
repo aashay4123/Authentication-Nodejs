@@ -27,10 +27,11 @@ export const accountActivationSuccess = (toastMessage) => {
 
 export const accountActivation = (token) => {
   return (dispatch) => {
-    axios
-      .post("/account_activate", {
-        data: { token },
-      })
+    axios({
+      method: "POST",
+      url: `/account_activate`,
+      data: { token },
+    })
       .then((response) => {
         dispatch(accountActivationSuccess(response.data.message));
       })
