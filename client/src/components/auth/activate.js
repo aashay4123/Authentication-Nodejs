@@ -1,43 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Layout from "../../container/layout";
-import axios from "axios";
+import { connect } from "react-redux";
 import jwt from "jsonwebtoken";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
-const URL = process.env.REACT_APP_API;
+import * as actions from "../../redux/actions";
+import { axiosInstance as axios } from "../../utility";
 
-const Activate = ({ match }) => {
-  const [values, setValues] = useState({
-    name: "",
-    token: "",
-    show: true,
-  });
-
+const Activate = (props) => {
   useEffect(() => {
-    let token = match.params.token;
+    let token = props.match.params.token;
     let { name } = jwt.decode(token);
-    if (token) {
-      setValues({ ...values, name, token });
+    if (token && name) {
+      props.onUpdateNameToken(name, token); // change
     }
-  }, [match.params.token, values]);
-
-  const { name, token } = values;
-
+  }, []);
+  const { token, name } = props;
+  console.log(token);
   const clickSubmit = (event) => {
     event.preventDefault();
+    // props.onAccountActivation(props.token); //change
     axios({
       method: "POST",
-      url: `${URL}/account_activate`,
+      url: `/account_activate`,
       data: { token },
     })
       .then((response) => {
         console.log("ACCOUNT ACTIVATION", response);
-        setValues({ ...values, show: false });
-        toast.success(response.data.message);
       })
       .catch((error) => {
         console.log("ACCOUNT ACTIVATION ERROR", error.response.data.error);
-        toast.error(error.response.data.error);
       });
   };
 
@@ -52,12 +42,25 @@ const Activate = ({ match }) => {
 
   return (
     <Layout>
-      <div className="col-md-6 offset-md-3">
-        <ToastContainer />
-        {activationLink()}
-      </div>
+      <div className="col-md-6 offset-md-3">{activationLink()}</div>
     </Layout>
   );
 };
 
-export default Activate;
+const mapStateToProps = (state) => {
+  return {
+    name: state.auth.name,
+    token: state.auth.token,
+    error: state.auth.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAccountActivation: (token) => dispatch(actions.accountActivation(token)),
+    onUpdateNameToken: (name, token) =>
+      dispatch(actions.updateNameToken(name, token)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Activate);

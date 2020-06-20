@@ -4,7 +4,7 @@ import Layout from "../../container/layout";
 import axios from "axios";
 import Google from "./google";
 import { authenticate, isAuth } from "../helper";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Facebook from "./facebook";
 
@@ -84,7 +84,6 @@ const Signin = ({ history }) => {
   return (
     <Layout>
       <div className="col-md-6 offset-med-3">
-        <ToastContainer />
         {isAuth() ? <Redirect to="/" /> : null}
         <h1 className="p-5 text-center">Signin</h1>
         <Google informParent={informParent} />
