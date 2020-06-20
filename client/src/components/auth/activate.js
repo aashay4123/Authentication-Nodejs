@@ -3,7 +3,6 @@ import Layout from "../../container/layout";
 import { connect } from "react-redux";
 import jwt from "jsonwebtoken";
 import * as actions from "../../redux/actions";
-import { axiosInstance as axios } from "../../utility";
 
 const Activate = (props) => {
   useEffect(() => {
@@ -18,17 +17,6 @@ const Activate = (props) => {
   const clickSubmit = (event) => {
     event.preventDefault();
     props.onAccountActivation(props.token); //change
-    // axios({
-    //   method: "POST",
-    //   url: `/account_activate`,
-    //   data: { token },
-    // })
-    //   .then((response) => {
-    //     console.log("ACCOUNT ACTIVATION", response);
-    //   })
-    //   .catch((error) => {
-    //     console.log("ACCOUNT ACTIVATION ERROR", error.response.data.error);
-    //   });
   };
 
   const activationLink = () => (

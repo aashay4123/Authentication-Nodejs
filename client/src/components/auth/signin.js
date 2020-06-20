@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Layout from "../../container/layout";
-import axios from "axios";
 import Google from "./google";
 import { authenticate, isAuth } from "../helper";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
 import Facebook from "./facebook";
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions";
 
-const Signin = ({ history }) => {
+const Signin = (props) => {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -22,13 +22,12 @@ const Signin = ({ history }) => {
         ...values,
         email: "",
         password: "",
-        success: true,
         buttonText: "submitted",
       });
       toast.success(`hey ${response.data.user.name} welcome back!!`);
       isAuth() && isAuth().role === "admin"
-        ? history.push("/admin")
-        : history.push("/private");
+        ? props.history.push("/admin")
+        : props.history.push("/private");
     });
   };
   const handleChange = (name) => (event) => {
@@ -38,20 +37,7 @@ const Signin = ({ history }) => {
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, buttonText: "submitting" });
-    axios({
-      method: "POST",
-      url: `api/signin`,
-      data: { email, password },
-    })
-      .then((response) => {
-        console.log("SIGNIN SUCCESS", response);
-        informParent(response);
-      })
-      .catch((error) => {
-        console.log("SIGNIN ERROR", error);
-        setValues({ ...values, buttonText: "submit" });
-        toast.error(error.response.data.error);
-      });
+    props.onSignin(email, password, informParent);
   };
 
   const signinForm = () => (
@@ -101,5 +87,11 @@ const Signin = ({ history }) => {
     </Layout>
   );
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignin: (email, password, informParent) =>
+      dispatch(actions.signin(email, password, informParent)),
+  };
+};
 
-export default Signin;
+export default connect(null, mapDispatchToProps)(Signin);

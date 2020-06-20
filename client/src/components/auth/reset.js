@@ -4,9 +4,11 @@ import jwt from "jsonwebtoken";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions";
 const URL = process.env.REACT_APP_API;
 
-const Reset = ({ match }) => {
+const Reset = (props) => {
   const [values, setValues] = useState({
     name: "",
     token: "",
@@ -14,7 +16,7 @@ const Reset = ({ match }) => {
     buttonText: "Reset Password Reset Link",
   });
   useEffect(() => {
-    let token = match.params.token;
+    let token = props.match.params.token;
     let { name } = jwt.decode(token);
     if (token) {
       setValues({ ...values, name, token });
@@ -29,21 +31,22 @@ const Reset = ({ match }) => {
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, buttonText: "Reseting password" });
-    axios({
-      method: "PUT",
-      url: `${URL}/reset-password`,
-      data: { newPassword, resetPasswordLink: token },
-    })
-      .then((response) => {
-        console.log("Reset PASSWORD SUCCESS", response);
-        toast.success(response.data.message);
-        setValues({ ...values, buttonText: "Reset Completed" });
-      })
-      .catch((error) => {
-        console.log("Reset PASSWORD ERROR", error);
-        setValues({ ...values, buttonText: "Reset Failed" });
-        toast.error(error.response.data.error);
-      });
+    props.onReset(newPassword, token);
+    // axios({
+    //   method: "PUT",
+    //   url: `${URL}/reset-password`,
+    //   data: { newPassword, resetPasswordLink: token },
+    // })
+    //   .then((response) => {
+    //     console.log("Reset PASSWORD SUCCESS", response);
+    //     toast.success(response.data.message);
+    //     setValues({ ...values, buttonText: "Reset Completed" });
+    //   })
+    //   .catch((error) => {
+    //     console.log("Reset PASSWORD ERROR", error);
+    //     setValues({ ...values, buttonText: "Reset Failed" });
+    //     toast.error(error.response.data.error);
+    //   });
   };
 
   const ResetPasswordForm = () => (
@@ -79,4 +82,11 @@ const Reset = ({ match }) => {
   );
 };
 
-export default Reset;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onReset: (newPassword, token) =>
+      dispatch(actions.reset(newPassword, token)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Reset);

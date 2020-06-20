@@ -3,9 +3,11 @@ import Layout from "../../container/layout";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-const URL = process.env.REACT_APP_API;
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions";
 
-const Forgot = () => {
+const URL = process.env.REACT_APP_API;
+const Forgot = (props) => {
   const [values, setValues] = useState({
     email: "",
     buttonText: "Request Password Reset Link",
@@ -19,21 +21,22 @@ const Forgot = () => {
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, buttonText: "Requesting password" });
-    axios({
-      method: "PUT",
-      url: `${URL}/forgot-password`,
-      data: { email },
-    })
-      .then((response) => {
-        console.log("FORGOT PASSWORD SUCCESS", response);
-        toast.success(response.data.message);
-        setValues({ ...values, buttonText: "Requested" });
-      })
-      .catch((error) => {
-        console.log("FORGOT PASSWORD ERROR", error);
-        setValues({ ...values, buttonText: "Request Failed" });
-        toast.error(error.response.data.error);
-      });
+    props.onforgot(email);
+    // axios({
+    //   method: "PUT",
+    //   url: `${URL}/forgot-password`,
+    //   data: { email },
+    // })
+    //   .then((response) => {
+    //     console.log("FORGOT PASSWORD SUCCESS", response);
+    //     toast.success(response.data.message);
+    //     setValues({ ...values, buttonText: "Requested" });
+    //   })
+    //   .catch((error) => {
+    //     console.log("FORGOT PASSWORD ERROR", error);
+    //     setValues({ ...values, buttonText: "Request Failed" });
+    //     toast.error(error.response.data.error);
+    //   });
   };
 
   const passwordForgotForm = () => (
@@ -58,12 +61,16 @@ const Forgot = () => {
   return (
     <Layout>
       <div className="col-md-6 offset-med-3">
-        <ToastContainer />
         <h1 className="p-5 text-center">Forgot password</h1>
         {passwordForgotForm()}
       </div>
     </Layout>
   );
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onforgot: (email) => dispatch(actions.forgot(email)),
+  };
+};
 
-export default Forgot;
+export default connect(null, mapDispatchToProps)(Forgot);

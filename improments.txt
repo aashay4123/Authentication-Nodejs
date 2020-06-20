@@ -1,2 +1,5 @@
 controllers/auth index not working
 api not secured for client
+
+add button text in redux
+redirect on reset to admin or private page

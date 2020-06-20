@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import Layout from "../../container/layout";
-import axios from "axios";
 import { isAuth } from "../helper";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions";
 
-const Signup = () => {
+const Signup = (props) => {
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -22,26 +21,7 @@ const Signup = () => {
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, buttonText: "submitting" });
-    axios({
-      method: "POST",
-      url: `api/signup`,
-      data: { name, email, password },
-    })
-      .then((response) => {
-        setValues({
-          ...values,
-          name: "",
-          email: "",
-          password: "",
-          success: true,
-          buttonText: "submitted",
-        });
-        toast.success(response.data.message);
-      })
-      .catch((err) => {
-        setValues({ ...values, buttonText: "submit" });
-        toast.error(err.response.data.error);
-      });
+    props.onSignup(name, email, password);
   };
 
   const signupForm = () => (
@@ -91,4 +71,11 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignup: (email, password, informParent) =>
+      dispatch(actions.signup(email, password, informParent)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Signup);
