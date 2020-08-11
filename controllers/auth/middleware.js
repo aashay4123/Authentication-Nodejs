@@ -3,6 +3,7 @@ const User = require("../../models/user");
 
 exports.requireSignin = expressJwt({
   secret: process.env.JWT_SECRET,
+  algorithms: ["HS256"],
 });
 
 exports.adminMiddleware = (req, res, next) => {
