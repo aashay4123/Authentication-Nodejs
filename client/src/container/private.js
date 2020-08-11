@@ -35,7 +35,7 @@ const Private = ({ history }) => {
         setValues({ ...values, role, name, email });
       })
       .catch((error) => {
-        console.log("PRIVATE PROFILE UPDATE ERROR", error.response.data.error);
+        console.log("PRIVATE PROFILE UPDATE ERROR", error.response);
         if (error.response.status === 401) {
           signout(() => {
             history.push("/");
