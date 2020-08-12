@@ -1,0 +1,135 @@
+.btn {
+  &,
+  &:link,
+  &:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    border-radius: 10rem;
+    transition: all 0.2;
+    position: relative;
+    font-size: 1rem;
+    margin: 1rem;
+
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1rem 2rem rgba(black, 0.3);
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.5rem 1rem rgba(black, 0.3);
+  }
+
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+  }
+
+  &-sm {
+    margin-left: 0 !important;
+  }
+  &--white {
+    background-color: white;
+    color: $color-grey-dark;
+    &::after {
+      background-color: white;
+    }
+  }
+  &--blue {
+    background-color: rgba($color-primary, 0.8);
+    color: $color-white;
+
+    &::after {
+      background-color: $color-primary;
+    }
+  }
+  &--red {
+    background-color: rgba(red, 0.7);
+    color: $color-white;
+    position: relative;
+    right: 2em;
+    // &::after {
+    //   background-color: red;
+    // }
+  }
+  &--green {
+    background-color: rgba(green, 0.9);
+    color: white;
+  }
+  &--grey {
+    background-color: rgba($color-footer, 0.9);
+    color: white;
+  }
+  &--flex {
+    display: flex;
+  }
+  &-color-white {
+    color: white;
+  }
+
+  &--animated {
+    animation: moveInBottom 0.5s ease-out 0.75s;
+    animation-fill-mode: backwards;
+  }
+  &--pad {
+    padding: 1em 4em;
+    position: relative;
+    top: 0.61em;
+    right: 2em;
+  }
+}
+.up {
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  // margin-top: 5.2rem;
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+    font-size: $default-font-size;
+    color: $color-primary;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 1px solid $color-primary;
+    padding: 3px;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+    transform: translateY(0);
+  }
+}
+
+.btnh {
+  margin: 1rem;
+}
