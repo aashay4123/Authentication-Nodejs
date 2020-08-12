@@ -8,7 +8,6 @@ self.addEventListener("install", function (event) {
       console.log("[Service Worker] Precaching App Shell");
       cache.addAll([
         "/",
-        "https://use.fontawesome.com/releases/v5.0.9/js/all.js",
         "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
       ]);
     })

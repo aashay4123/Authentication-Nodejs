@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import Layout from "../../container/layout";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions";
 
-const URL = process.env.REACT_APP_API;
 const Forgot = (props) => {
   const [values, setValues] = useState({
     email: "",
@@ -22,21 +18,6 @@ const Forgot = (props) => {
     event.preventDefault();
     setValues({ ...values, buttonText: "Requesting password" });
     props.onforgot(email);
-    // axios({
-    //   method: "PUT",
-    //   url: `${URL}/forgot-password`,
-    //   data: { email },
-    // })
-    //   .then((response) => {
-    //     console.log("FORGOT PASSWORD SUCCESS", response);
-    //     toast.success(response.data.message);
-    //     setValues({ ...values, buttonText: "Requested" });
-    //   })
-    //   .catch((error) => {
-    //     console.log("FORGOT PASSWORD ERROR", error);
-    //     setValues({ ...values, buttonText: "Request Failed" });
-    //     toast.error(error.response.data.error);
-    //   });
   };
 
   const passwordForgotForm = () => (

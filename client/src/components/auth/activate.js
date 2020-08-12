@@ -9,14 +9,14 @@ const Activate = (props) => {
     let token = props.match.params.token;
     let { name } = jwt.decode(token);
     if (token && name) {
-      props.onUpdateNameToken(name, token); // change
+      props.onUpdateNameToken(name, token);
     }
+    // eslint-disable-next-line
   }, []);
-  const { token, name } = props;
-  console.log(token);
+  const { name } = props;
   const clickSubmit = (event) => {
     event.preventDefault();
-    props.onAccountActivation(props.token); //change
+    props.onAccountActivation(props.token);
   };
 
   const activationLink = () => (

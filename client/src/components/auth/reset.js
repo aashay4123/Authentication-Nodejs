@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../container/layout";
 import jwt from "jsonwebtoken";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions";
-const URL = process.env.REACT_APP_API;
 
 const Reset = (props) => {
   const [values, setValues] = useState({
@@ -21,6 +17,7 @@ const Reset = (props) => {
     if (token) {
       setValues({ ...values, name, token });
     }
+    // eslint-disable-next-line
   }, []);
   const { name, token, newPassword, buttonText } = values;
 
@@ -32,21 +29,6 @@ const Reset = (props) => {
     event.preventDefault();
     setValues({ ...values, buttonText: "Reseting password" });
     props.onReset(newPassword, token);
-    // axios({
-    //   method: "PUT",
-    //   url: `${URL}/reset-password`,
-    //   data: { newPassword, resetPasswordLink: token },
-    // })
-    //   .then((response) => {
-    //     console.log("Reset PASSWORD SUCCESS", response);
-    //     toast.success(response.data.message);
-    //     setValues({ ...values, buttonText: "Reset Completed" });
-    //   })
-    //   .catch((error) => {
-    //     console.log("Reset PASSWORD ERROR", error);
-    //     setValues({ ...values, buttonText: "Reset Failed" });
-    //     toast.error(error.response.data.error);
-    //   });
   };
 
   const ResetPasswordForm = () => (
@@ -74,7 +56,6 @@ const Reset = (props) => {
   return (
     <Layout>
       <div className="col-md-6 offset-med-3">
-        <ToastContainer />
         <h1 className="p-5 text-center">hey {name}, enter new password</h1>
         {ResetPasswordForm()}
       </div>

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../container/layout";
 import axios from "axios";
 import { isAuth, getcookie, signout, updateUser } from "../components/helper";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+import { toast } from "react-toastify";
 const URL = process.env.REACT_APP_API;
 
 const Private = ({ history }) => {
@@ -19,6 +18,7 @@ const Private = ({ history }) => {
 
   useEffect(() => {
     loadProfile();
+    // eslint-disable-next-line
   }, []);
 
   const loadProfile = () => {
@@ -128,7 +128,6 @@ const Private = ({ history }) => {
   return (
     <Layout>
       <div className="col-md-6 offset-md-3">
-        <ToastContainer />
         <h1 className="pt-5 text-center">Private</h1>
         <p className="lead text-center">Profile update</p>
         {updateForm()}
