@@ -32,6 +32,6 @@
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
     "react-google-login": "^5.1.21",
-    "validator": "^13.1.1"
+    "validator": "^13.7.0"
   }
 }
